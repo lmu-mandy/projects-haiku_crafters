@@ -1,0 +1,25 @@
+Write three lines of a haiku from a cue word/phrase.
+Cue: silence
+Haiku: An old silent pond\nA frog jumps into the pond—\nSplash! Silence again.
+Cue: struggle
+Haiku: A world of dew,\nAnd within every dewdrop\nA world of struggle.
+Cue: light
+Haiku: The light of a candle\nIs transferred to another candle—\nSpring twilight.
+Cue: love
+Haiku: love between us is\nspeech and breath. loving you is\na long river running.
+Cue: dreams
+Haiku: The summer grasses\nAll that remains\nOf warriors' dreams.
+Cue: death
+Haiku: Like a half-exposed rotten log\nmy life, which never flowered,\nends barren.
+Cue: death
+Haiku: Let me die in spring\nbeneath the cherry blossoms\nwhile the moon is full.
+Cue: suicide
+Haiku: The calm,\nCool face of the river\nAsked me for a kiss.
+Cue: life
+Haiku: Life: a solitary butterfly\nswaying unsteadily on a slender grass-stalk,\nnothing more. But ah! so exquisite!
+Cue: loneliness
+Haiku: Along this road\nGoes no one,\nThis autumn eve.
+Cue: longing
+Haiku: Even in Kyoto,\nHearing the cuckoo’s cry,\nI long for Kyoto.
+Cue: {}
+Haiku: 
