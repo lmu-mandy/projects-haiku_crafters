@@ -31,8 +31,6 @@ def index():
     return render_template("index.html", result=result)
 
 def generate_prompt(input_type, cue):
-    # if input_type == "title":
-    #     return generate_prompt_from_title(cue)
     if input_type == "subject":
         return generate_prompt_from_subject(cue)
     elif input_type == "symbol":
