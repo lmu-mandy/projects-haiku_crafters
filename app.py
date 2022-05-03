@@ -4,6 +4,7 @@ import os
 import openai
 from flask import Flask, redirect, render_template, request, url_for
 from lstm.src.model.model import CharRNN, sample
+import lstm.src.model.utils
 import torch
 
 app = Flask(__name__)

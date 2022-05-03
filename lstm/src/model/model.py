@@ -12,7 +12,7 @@ from torch import nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 
-from utils import get_batches, one_hot_encode
+from lstm.src.model.utils import one_hot_encode
 
 class CharRNN(nn.Module):
     def __init__(self, tokens, n_steps=100, n_hidden=256, n_layers=2,
