@@ -3,8 +3,7 @@ import os
 
 import openai
 from flask import Flask, redirect, render_template, request, url_for
-from lstm.src.model.model import CharRNN, sample
-import lstm.src.model.utils
+from lstm.src.model.model import CharRNN, sample, normalize_haiku_text, split_haiku_by_line
 import torch
 
 app = Flask(__name__)
@@ -52,12 +51,18 @@ def generate_prompt(input_type, cue):
 
 
 def generate_prompt_from_seed(cue):
+    # Load and generate the haiku from previously trained model
     with open('./lstm/src/model/checkpoints/rnn (haikus + shakespeare).net', 'rb') as f:
         checkpoint = torch.load(f)
         
     loaded = CharRNN(checkpoint['tokens'], n_hidden=checkpoint['n_hidden'], n_layers=checkpoint['n_layers'])
     loaded.load_state_dict(checkpoint['state_dict'])
-    return sample(loaded, 100, cuda=True, top_k=5, prime=cue)
+
+    # Normalize text
+    normalized_haiku = normalize_haiku_text(sample(loaded, 75, cuda=True, top_k=5, prime=cue))
+
+    # Split into haiku format
+    return split_haiku_by_line(normalized_haiku)
 
 
 def generate_prompt_from_subject(cue):

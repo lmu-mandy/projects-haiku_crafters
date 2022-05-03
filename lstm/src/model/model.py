@@ -4,6 +4,7 @@ MIT License
 Copyright (c) 2017 Mat Leonard
 
 '''
+import re
 
 import torch.nn as torch
 import numpy as np
@@ -11,6 +12,7 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 from torch.autograd import Variable
+import syllables
 
 from lstm.src.model.utils import one_hot_encode
 
@@ -141,3 +143,31 @@ def sample(model, size, prime='The', top_k=None, cuda=False):
         chars.append(char)
 
     return ''.join(chars)
+
+
+def normalize_haiku_text(haiku):
+    haiku = haiku.replace("\n", " ")
+    haiku = " ".join(haiku.split())
+    haiku = haiku.split(" ")
+    haiku = [word if re.findall("I", word) else word.lower() for word in haiku]
+    return(haiku)
+
+def split_haiku_by_line(haiku):
+    haiku_generator = (word for word in haiku)
+    haiku_with_line_breaks = ""
+    running_syllable_count = 0
+    line_number = 0
+    while line_number < 3:
+        word = next(haiku_generator)
+        running_syllable_count += syllables.estimate(word)
+        if running_syllable_count >= 5 and line_number in (0, 2):
+            haiku_with_line_breaks += f"{word}\n"
+            line_number += 1
+            running_syllable_count = 0
+        elif running_syllable_count >= 7 and line_number == 1:
+            haiku_with_line_breaks += f"{word}\n"
+            line_number += 1
+            running_syllable_count = 0
+        else:
+            haiku_with_line_breaks += f"{word} "
+    return haiku_with_line_breaks
