@@ -1,39 +1,42 @@
-# OpenAI API Quickstart - Python example app
+Weclome to the project: Haiku Crafters
 
-This is an example pet name generator app used in the OpenAI API [quickstart tutorial](https://beta.openai.com/docs/quickstart). It uses the [Flask](https://flask.palletsprojects.com/en/2.0.x/) web framework. Check out the tutorial or follow the instructions below to get set up.
+## Project Description 
+This a webapp that can generates peoms that closely follows the haiku format of 5-7-5 syllable and line count.
 
-## Setup
+It generators haikus from either openai GPT-3 model or a LSTM model that we trained ourself.
 
-1. If you don’t have Python installed, [install it from here](https://www.python.org/downloads/)
+The front end uses flask to connect from either the openai api or the LSTM model.
 
-2. Clone this repository
+## Installation Instructions
 
-3. Navigate into the project directory
+1. Clone this repository
+
+2. Navigate into the project directory
 
    ```bash
    $ cd openai-quickstart-python
    ```
 
-4. Create a new virtual environment
+3. Create a new virtual environment
 
    ```bash
    $ python -m venv venv
    $ . venv/bin/activate
    ```
 
-5. Install the requirements
+4. Install the requirements
 
    ```bash
    $ pip install -r requirements.txt
    ```
 
-6. Make a copy of the example environment variables file
+5. Make a copy of the example environment variables file
 
    ```bash
    $ cp .env.example .env
    ```
 
-7. Add your [API key](https://beta.openai.com/account/api-keys) to the newly created `.env` file
+6. Add your [API key](https://beta.openai.com/account/api-keys) to the newly created `.env` file
 
 8. Run the app
 
@@ -41,4 +44,5 @@ This is an example pet name generator app used in the OpenAI API [quickstart tut
    $ flask run
    ```
 
-You should now be able to access the app at [http://localhost:5000](http://localhost:5000)! For the full context behind this example app, check out the [tutorial](https://beta.openai.com/docs/quickstart).
+9. Copy the url link shown in the terminal and paste it into a browser
+

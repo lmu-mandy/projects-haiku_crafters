@@ -17,6 +17,18 @@ import syllables
 from lstm.src.model.utils import one_hot_encode
 
 class CharRNN(nn.Module):
+    """
+    A class for a Char RNN using pytorch
+
+    Arguemnts:
+    ----------
+    tokens = the number of tokens(chars) in the data
+    n_steps = the batch size
+    n_hidden = the size of the hidden layers 
+    n_layers = the number of hidden layers
+    drop_prob = the drop out probablity 
+    lr = learning rate 
+    """
     def __init__(self, tokens, n_steps=100, n_hidden=256, n_layers=2,
                                drop_prob=0.5, lr=0.001):
         super().__init__()
@@ -104,6 +116,8 @@ class CharRNN(nn.Module):
                 Variable(weight.new(self.n_layers, n_seqs, self.n_hidden).zero_()))
 
 def save_model(model, filename='rnn.ckpt'):
+    """Saves the model."""
+
     checkpoint = {'n_hidden': model.n_hidden,
                   'n_layers': model.n_layers,
                   'state_dict': model.state_dict(),
@@ -112,7 +126,8 @@ def save_model(model, filename='rnn.ckpt'):
         torch.save(checkpoint, f)
 
 def load_model(filename):
-    
+    """Loads a model from a given file."""
+
     with open(filename, 'rb') as f:
         checkpoint = torch.load(f)
 
@@ -122,9 +137,9 @@ def load_model(filename):
     return model
 
 def sample(model, size, prime='The', top_k=None, cuda=False):
-    """ Sample characters from the model.
+    """ Sample characters from the model."""
 
-    """
+    # Sees if cuda is aviable
     if cuda:
         model.cuda()
     else:
@@ -133,12 +148,13 @@ def sample(model, size, prime='The', top_k=None, cuda=False):
     model.eval()
     chars = [ch for ch in prime]
     h = model.init_hidden(1)
+    # Iterates through the primers and creates poems based on the primer
     for ch in prime:
         char, h = model.predict(ch, h, cuda=cuda, top_k=top_k)
 
     chars.append(char)
 
-    for ii in range(size):
+    for _ in range(size):
         char, h = model.predict(chars[-1], h, cuda=cuda, top_k=top_k)
         chars.append(char)
 
