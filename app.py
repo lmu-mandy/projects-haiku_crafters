@@ -3,6 +3,8 @@ import os
 
 import openai
 from flask import Flask, redirect, render_template, request, url_for
+from lstm.src.model.model import CharRNN, sample
+import torch
 
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -14,19 +16,24 @@ def index():
     if request.method == "POST":
         input_type = request.form["input-type"]
         cue = request.form["cue"]
-        while(True):
-            response = openai.Completion.create(
-                engine="text-davinci-002",
-                prompt=generate_prompt(input_type, cue),
-                temperature=0.6,
-            )
-            for i in range(len(response.choices)):
-                haiku = response.choices[i].text
-                if strict:
-                    if len(haiku.split('\n')) == 3 and haiku[-1] == "." or haiku[-1] == "!":
+        print("input type: ", input_type)
+        if input_type == "lstm":
+            haiku = generate_prompt(input_type, cue)
+            return redirect(url_for("index", result=haiku))
+        else: 
+            while(True):
+                response = openai.Completion.create(
+                    engine="text-davinci-002",
+                    prompt=generate_prompt(input_type, cue),
+                    temperature=0.6,
+                )
+                for i in range(len(response.choices)):
+                    haiku = response.choices[i].text
+                    if strict:
+                        if len(haiku.split('\n')) == 3 and haiku[-1] == "." or haiku[-1] == "!":
+                            return redirect(url_for("index", result=haiku))
+                    else:
                         return redirect(url_for("index", result=haiku))
-                else:
-                    return redirect(url_for("index", result=haiku))
     result = request.args.get("result")
     return render_template("index.html", result=result)
 
@@ -37,8 +44,19 @@ def generate_prompt(input_type, cue):
         return generate_prompt_from_subject(cue)
     elif input_type == "symbol":
         return generate_prompt_from_symbol(cue)
+    elif input_type == "lstm":
+        return generate_prompt_from_seed(cue)
     else:
         raise ValueError(f'Invalid input type {input_type}')
+
+
+def generate_prompt_from_seed(cue):
+    with open('./lstm/src/model/checkpoints/rnn (haikus + shakespeare).net', 'rb') as f:
+        checkpoint = torch.load(f)
+        
+    loaded = CharRNN(checkpoint['tokens'], n_hidden=checkpoint['n_hidden'], n_layers=checkpoint['n_layers'])
+    loaded.load_state_dict(checkpoint['state_dict'])
+    return sample(loaded, 100, cuda=True, top_k=5, prime=cue)
 
 
 def generate_prompt_from_subject(cue):
