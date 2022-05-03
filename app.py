@@ -64,14 +64,10 @@ def generate_prompt(input_type, cue):
 
 
 def generate_prompt_from_seed(cue):
-<<<<<<< HEAD
-    # Load and generate the haiku from previously trained model
-=======
     """
     Sends the cue to the LSTM and returns the sample.
     """
 
->>>>>>> 2996d33e114b7491e9ea2bb6afae163c654ef951
     with open('./lstm/src/model/checkpoints/rnn (haikus + shakespeare).net', 'rb') as f:
         checkpoint = torch.load(f)
         
