@@ -7,8 +7,19 @@ from lstm.src.model.model import CharRNN, sample
 import lstm.src.model.utils
 import torch
 
+"""
+    Renders index.html asking for a promt. Then eithers uses openai api
+    or using model.py, depending on which preference the user has selected 
+    to generate haikus 
+
+    To access the openai api either follow the steps in the readme or paste the 
+    api in openai.api_key = {api key}
+"""
+
 app = Flask(__name__)
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = "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"
+
 strict = True
 
 
@@ -39,8 +50,10 @@ def index():
     return render_template("index.html", result=result)
 
 def generate_prompt(input_type, cue):
-    # if input_type == "title":
-    #     return generate_prompt_from_title(cue)
+    """
+    Logic to decide what models to generate from.
+    """
+    
     if input_type == "subject":
         return generate_prompt_from_subject(cue)
     elif input_type == "symbol":
@@ -52,6 +65,10 @@ def generate_prompt(input_type, cue):
 
 
 def generate_prompt_from_seed(cue):
+    """
+    Sends the cue to the LSTM and returns the sample.
+    """
+
     with open('./lstm/src/model/checkpoints/rnn (haikus + shakespeare).net', 'rb') as f:
         checkpoint = torch.load(f)
         
@@ -61,6 +78,10 @@ def generate_prompt_from_seed(cue):
 
 
 def generate_prompt_from_subject(cue):
+    """ 
+    Feeds the openai api both the training data and the cue word for subject hakius
+    """
+
     return """Write three lines of a haiku from a cue word/phrase.
 Cue: old pond
 Haiku: An old silent pond\nA frog jumps into the pond—\nSplash! Silence again.
@@ -89,6 +110,10 @@ Haiku: """.format(cue.lower())
 
 
 def generate_prompt_from_symbol(cue):
+    """
+    Feeds the openai api both the training data and the cue word for symbol hakius
+    """
+
     return """Write three lines of a haiku from a cue word\nphrase.
 Cue: silence
 Haiku: An old silent pond\nA frog jumps into the pond—\nSplash! Silence again.

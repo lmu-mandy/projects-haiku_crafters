@@ -8,6 +8,8 @@ Copyright (c) 2017 Mat Leonard
 import numpy as np
 
 def get_lookup_tables(text):
+    """Makes a look up tables for both char-to-int and int-to-char"""
+
     chars = tuple(set(text))
     int2char = dict(enumerate(chars))
     char2int = {ch: ii for ii, ch in int2char.items()}
@@ -39,6 +41,7 @@ def get_batches(arr, n_seqs, n_steps):
         yield x, y
 
 def one_hot_encode(arr, n_labels):
+    """Converts a given arr into one-hot-encodes given the number of labels"""
     
     # Initialize the the encoded array
     one_hot = np.zeros((np.multiply(*arr.shape), n_labels), dtype=np.float32)
