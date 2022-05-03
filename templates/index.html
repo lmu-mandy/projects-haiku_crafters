@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+  <title>OpenAI Quickstart</title>
+  <link
+    rel="shortcut icon"
+    href="{{ url_for('static', filename='enso.png') }}"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+</head>
+
+<body>
+  <img src="{{ url_for('static', filename='enso.png') }}" class="icon" />
+  <h3>Generate a Haiku</h3>
+  <form action="/" method="post" id="type">
+    <input type="text" name="cue" placeholder="Cue Word or Phrase" required />
+    <div class="submission">
+      <input type="submit" value="Generate Haiku" />
+      <select name="input-type" form="type">
+        <!-- <option value="title">Title</option> -->
+        <option value="subject">Subject</option>
+        <option value="symbol">Symbol</option>
+      </select>
+      
+    </div>
+  </form>
+  {% if result %}
+  <div class="result">{{result}}</div>
+  {% endif %}
+</body>
