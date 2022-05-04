@@ -1,7 +1,6 @@
 # Haiku Crafters
 
-This is a haiku generator app using OpenAI API [quickstart tutorial](https://beta.openai.com/docs/quickstart). It uses the [Flask](https://flask.palletsprojects.com/en/2.0.x/) web framework. Check out the tutorial or follow the instructions below to get set up.
-
+This is a haiku generator app using OpenAI API [quickstart tutorial](https://beta.openai.com/docs/quickstart). It uses the [Flask](https://flask.palletsprojects.com/en/2.0.x/) web framework. 
 ## Setup
 
 1. If you don’t have Python installed, [install it from here](https://www.python.org/downloads/)
@@ -45,4 +44,4 @@ This is a haiku generator app using OpenAI API [quickstart tutorial](https://bet
    $ flask run
    ```
 
-You should now be able to access the app at [http://localhost:5000](http://localhost:5000)! For the full context behind this example app, check out the [tutorial](https://beta.openai.com/docs/quickstart).
+You should now be able to access the app at the url provided in your terminal!
