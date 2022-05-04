@@ -31,6 +31,6 @@ def index():
     return render_template("index.html", result=result)
 
 def generate_prompt(input_type, cue):
-    with open(f'{input_type}_prompt.txt', "r") as f:
+    with open(f'./static/{input_type}_prompt.txt', "r") as f:
         prompt = f.read()
         return prompt.format(cue.lower())
