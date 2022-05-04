@@ -1,4 +1,5 @@
 venv/
+wsl-haiku-crafters/
 
 *.pyc
 __pycache__/
