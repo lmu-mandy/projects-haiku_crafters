@@ -1,17 +1,21 @@
-# OpenAI API Quickstart - Python example app
+# Haiku Crafters
 
-This is an example pet name generator app used in the OpenAI API [quickstart tutorial](https://beta.openai.com/docs/quickstart). It uses the [Flask](https://flask.palletsprojects.com/en/2.0.x/) web framework. Check out the tutorial or follow the instructions below to get set up.
+This is a haiku generator app using OpenAI API [quickstart tutorial](https://beta.openai.com/docs/quickstart). It uses the [Flask](https://flask.palletsprojects.com/en/2.0.x/) web framework. Check out the tutorial or follow the instructions below to get set up.
 
 ## Setup
 
 1. If you don’t have Python installed, [install it from here](https://www.python.org/downloads/)
 
 2. Clone this repository
+   
+   ```bash
+   $ git clone https://github.com/lmu-mandy/projects-haiku_crafters
+   ```
 
 3. Navigate into the project directory
 
    ```bash
-   $ cd openai-quickstart-python
+   $ cd projects-haiku_crafters
    ```
 
 4. Create a new virtual environment
